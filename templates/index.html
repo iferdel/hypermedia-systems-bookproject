@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Contact List</title>
+</head>
+<body>
+    <h1>Contact List</h1>
+
+    <form method="GET" action="{% url 'contacts' %}">
+        <input type="text" name="q" placeholder="Search contacts">
+        <button type="submit">Search</button>
+    </form>
+
+    <ul>
+        {% for contact in contacts %}
+            <li>{{ contact.name }}</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
