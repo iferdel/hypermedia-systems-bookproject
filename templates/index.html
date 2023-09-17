@@ -3,7 +3,7 @@
 {% extends 'layout.html' %}
 
 {% block content %}
-    <form action="/contacts" method="get" class="tool-bar">
+    <form action="/contacts" method="get" class="tool-bar"> {% csrf_token %}
         <label for="search">Search Term</label>
         <input id="search" type="search" name="q" value="{{ request.GET.q|default:'' }}"/>
         <input type="submit" value="Search"/>

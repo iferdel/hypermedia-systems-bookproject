@@ -1,0 +1,38 @@
+<!-- templates/new.html -->
+
+{% extends 'layout.html' %}
+
+{% block content %}
+    <form action="/contacts/new/" method="post">
+    {% csrf_token %}
+    <fieldset>
+        <legend>Contact Values</legend>
+        <p>
+            <label for="username">Username</label>
+            <input name="username" id="username" type="text" placeholder="Username" value="{{ form.username.value }}">
+            <span class="error">{{ form.username.errors }}</span>
+        </p>
+        <p>
+            <label for="first_name">First Name</label>
+            <input name="first_name" id="first_name" type="text" placeholder="First Name" value="{{ form.first_name.value }}">
+            <span class="error">{{ form.first_name.errors }}</span>
+        </p>
+        <p>
+            <label for="last_name">Last Name</label>
+            <input name="last_name" id="last_name" type="text" placeholder="Last Name" value="{{ form.last_name.value }}">
+            <span class="error">{{ form.last_name.errors }}</span>
+        </p>
+        <p>
+            <label for="email">Email</label>
+            <input name="email" id="email" type="email" placeholder="Email" value="{{ form.email.value }}">
+            <span class="error">{{ form.email.errors }}</span>
+        </p>
+        <button>Save</button>
+    </fieldset>
+</form>
+
+<p>
+    <a href="{% url 'contacts' %}">Back</a>
+</p>
+
+{% endblock %}
