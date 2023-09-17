@@ -1,0 +1,16 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<h1>{{ user.first_name }} {{ user.last_name }}</h1>
+
+<div>
+  <div>Email: {{ user.email }}</div>
+</div>
+
+<p>
+  <a href="/contacts/{{ user.id }}/edit">Edit</a>
+  <a href="/contacts">Back</a>
+</p>
+
+{% endblock %}

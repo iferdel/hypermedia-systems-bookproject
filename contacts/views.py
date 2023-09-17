@@ -1,7 +1,7 @@
 # contacts/views.py
 
 from django.contrib.auth.models import User
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 
 
 def contacts(request):
@@ -29,3 +29,8 @@ def contacts_new(request):
     else:
         new_user = User()
         return render(request, "new.html", {"contact": new_user})
+
+
+def contacts_view(request, user_id=0):
+    user = get_object_or_404(User, id=user_id)
+    return render(request, "show.html", {"user": user})

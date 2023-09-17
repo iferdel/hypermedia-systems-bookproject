@@ -22,8 +22,8 @@
                 <td>{{ user.first_name }}</td>
                 <td>{{ user.last_name }}</td>
                 <td>{{ user.email }}</td>
-                <td><a href="/contacts/{{ contact.id }}/edit">Edit</a>
-                    <a href="/contacts/{{ contact.id }}">View</a></td>
+                <td><a href="/contacts/{{ user.id }}/edit">Edit</a>
+                    <a href="{% url 'contacts_view' user.id %}">View</a>
             </tr>
         {% endfor %}
         </tbody>
