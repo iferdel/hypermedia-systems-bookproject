@@ -4,8 +4,10 @@
 
 {% block content %}
 
-<button hx-get="{% url 'contacts' %}">
-  Get The Contacts
-</button>
+<div id="main">
+  <button hx-get="{% url 'contacts' %}" hx-target="#main">
+    Get The Contacts
+  </button>
+</div>
 
 {% endblock %}
