@@ -4,6 +4,10 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect, get_object_or_404
 
 
+def home(request):
+    return render(request, "home.html")
+
+
 def contacts(request):
     search = request.GET.get("q")
     if search is not None:

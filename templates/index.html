@@ -22,7 +22,8 @@
                 <td>{{ user.first_name }}</td>
                 <td>{{ user.last_name }}</td>
                 <td>{{ user.email }}</td>
-                <td><a href="/contacts/{{ user.id }}/edit">Edit</a>
+                <td>
+                    <a href="{% url 'contacts_edit' user.id %}">Edit</a>
                     <a href="{% url 'contacts_view' user.id %}">View</a>
             </tr>
         {% endfor %}
@@ -30,7 +31,7 @@
     </table>
 
    <p>
-       <a href="/contacts/new">Add Contact</a>
+       <a href="{% url 'contacts_new' %}">Add Contact</a>
    </p>
 
 {% endblock %}

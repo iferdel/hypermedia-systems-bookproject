@@ -1,0 +1,11 @@
+<!-- templates/home.html -->
+
+{% extends 'layout.html' %}
+
+{% block content %}
+
+<button hx-get="{% url 'contacts' %}">
+  Get The Contacts
+</button>
+
+{% endblock %}
