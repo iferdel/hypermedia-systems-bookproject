@@ -9,23 +9,23 @@
         <legend>Contact Values</legend>
         <p>
             <label for="username">Username</label>
-            <input name="username" id="username" type="text" placeholder="Username" value="{{ form.username.value }}">
-            <span class="error">{{ form.username.errors }}</span>
+            <input name="username" id="username" type="text" placeholder="Username" value="{{ user.username }}">
+            <span class="error">{{ user.errors.username }}</span>
         </p>
         <p>
             <label for="first_name">First Name</label>
-            <input name="first_name" id="first_name" type="text" placeholder="First Name" value="{{ form.first_name.value }}">
-            <span class="error">{{ form.first_name.errors }}</span>
+            <input name="first_name" id="first_name" type="text" placeholder="First Name" value="{{ user.first_name }}">
+            <span class="error">{{ user.errors.first_name }}</span>
         </p>
         <p>
             <label for="last_name">Last Name</label>
-            <input name="last_name" id="last_name" type="text" placeholder="Last Name" value="{{ form.last_name.value }}">
-            <span class="error">{{ form.last_name.errors }}</span>
+            <input name="last_name" id="last_name" type="text" placeholder="Last Name" value="{{ user.last_name }}">
+            <span class="error">{{ user.errors.last_name }}</span>
         </p>
         <p>
             <label for="email">Email</label>
-            <input name="email" id="email" type="email" placeholder="Email" value="{{ form.email.value }}">
-            <span class="error">{{ form.email.errors }}</span>
+            <input name="email" id="email" type="email" placeholder="Email" value="{{ user.email }}">
+            <span class="error">{{ user.errors.email }}</span>
         </p>
         <button>Save</button>
     </fieldset>

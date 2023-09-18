@@ -1,0 +1,40 @@
+<!-- templates/edit.html -->
+
+{% extends 'layout.html' %}
+
+{% block content %}
+  <form action="/contacts/{{ user.id }}/edit/" method="post"> {% csrf_token %}
+        <fieldset>
+            <legend>Contact Values</legend>
+              <p>
+                  <label for="username">Username</label>
+                  <input name="username" id="username" type="text" placeholder="Username" value="{{ user.username }}">
+                  <span class="error">{{ user.errors.username }}</span>
+              </p>
+              <p>
+                  <label for="email">Email</label>
+                  <input name="email" id="email" type="email" placeholder="Email" value="{{ user.email }}">
+                  <span class="error">{{ user.errors.email }}</span>
+              </p>
+                          <p>
+                  <label for="first_name">First Name</label>
+                  <input name="first_name" id="first_name" type="text" placeholder="First Name" value="{{ user.first_name }}">
+                  <span class="error">{{ user.errors.first_name }}</span>
+              </p>
+              <p>
+                  <label for="last_name">Last Name</label>
+                  <input name="last_name" id="last_name" type="text" placeholder="Last Name" value="{{ user.last_name }}">
+                  <span class="error">{{ user.errors.last_name }}</span>
+              </p>
+            <button>Save</button>
+        </fieldset>
+    </form>
+    <form action="/contacts/{{ user.id }}/delete/" method="post"> {% csrf_token %}
+        <button>Delete Contact</button>
+    </form>
+
+    <p>
+        <a href="/contacts/">Back</a>
+    </p>
+
+{% endblock %}
