@@ -1,6 +1,7 @@
 # contacts/views.py
 from django.contrib import messages
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
 
@@ -51,15 +52,13 @@ def contacts_edit(request, user_id=0):
         user.save()
 
         return redirect("/contacts/" + str(user_id))
-    else:
-        return render(request, "edit.html", {"user": user})
 
-
-def contacts_delete(request, user_id=0):
-    if request.method == 'POST':
+    elif request.method == 'DELETE':
         user = get_object_or_404(User, id=user_id)
         user.delete()
-        messages.add_message(request, messages.SUCCESS, 'Deleted Contact!')
-        return redirect('/contacts')
+        response = HttpResponse(status=303)
+        response['Location'] = '/contacts'
+        return response
+
     else:
-        return redirect('/contacts')
+        return render(request, "edit.html", {"user": user})

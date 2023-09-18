@@ -5,9 +5,13 @@
 {% block content %}
 
 <div id="main">
-  <button hx-get="{% url 'contacts' %}" hx-target="#main">
-    Get The Contacts
-  </button>
+  <form> {% csrf_token %}
+    <label for="search">Search Contacts:</label>
+    <input id="search" name="q" type="search" placeholder="Search Contacts" value="{{ request.GET.q|default:'' }}">
+    <button hx-post="{% url 'contacts' %}" hx-target="#main" hx-include="#search" hx-push-url="true">
+      Get The Contacts
+    </button>
+  </form>
 </div>
 
 {% endblock %}

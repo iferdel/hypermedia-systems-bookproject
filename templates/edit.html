@@ -29,9 +29,14 @@
             <button>Save</button>
         </fieldset>
     </form>
-    <form action="/contacts/{{ user.id }}/delete/" method="post"> {% csrf_token %}
-        <button>Delete Contact</button>
-    </form>
+
+    <button hx-delete="{% url 'contacts_edit' user.id %}"
+            hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
+            hx-target="body"
+            hx-push-url="true"
+            hx-confirm="Are you sure you want to delete this contact?">
+        Delete Contact
+    </button>
 
     <p>
         <a href="/contacts/">Back</a>

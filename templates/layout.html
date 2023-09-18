@@ -1,3 +1,5 @@
+<!-- templates/layout.html -->
+
 {% load static %}
 
 <!DOCTYPE html>
@@ -7,7 +9,8 @@
     <title>Contact App</title>
     <script src="{% static 'js/htmx.min.js' %}"></script>
 </head>
-<body>
+<body hx-boost="true">
+<!--      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>-->
     <main>
         <header>
             <h1>A Demo Contacts Application</h1>
