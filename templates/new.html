@@ -9,22 +9,26 @@
         <legend>Contact Values</legend>
         <p>
             <label for="username">Username</label>
-            <input name="username" id="username" type="text" placeholder="Username" value="{{ user.username }}">
+            <input name="username" id="username" type="text" placeholder="Username">
             <span class="error">{{ user.errors.username }}</span>
         </p>
         <p>
             <label for="first_name">First Name</label>
-            <input name="first_name" id="first_name" type="text" placeholder="First Name" value="{{ user.first_name }}">
+            <input name="first_name" id="first_name" type="text" placeholder="First Name">
             <span class="error">{{ user.errors.first_name }}</span>
         </p>
         <p>
             <label for="last_name">Last Name</label>
-            <input name="last_name" id="last_name" type="text" placeholder="Last Name" value="{{ user.last_name }}">
+            <input name="last_name" id="last_name" type="text" placeholder="Last Name">
             <span class="error">{{ user.errors.last_name }}</span>
         </p>
         <p>
             <label for="email">Email</label>
-            <input name="email" id="email" type="email" placeholder="Email" value="{{ user.email }}">
+            <input name="email" id="email" type="email"
+                   hx-get="/contacts/{{ user.id }}/email"
+                   hx-target="next .error"
+                   hx-trigger="change, keyup delay:200ms changed"
+                   placeholder="Email">
             <span class="error">{{ user.errors.email }}</span>
         </p>
         <button>Save</button>

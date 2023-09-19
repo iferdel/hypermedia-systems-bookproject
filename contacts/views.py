@@ -1,6 +1,8 @@
 # contacts/views.py
-from django.contrib import messages
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from django.core.paginator import Paginator
+from django.core.validators import EmailValidator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
@@ -11,12 +13,17 @@ def home(request):
 
 def contacts(request):
     search = request.GET.get("q")
-    if search is not None:
-        users = User.objects.filter(username__icontains=search)
-    else:
-        users = User.objects.all()
+    page = int(request.GET.get("page", 1))
 
-    return render(request, "index.html", {"users": users})
+    users_query = User.objects.all()
+
+    if search:
+        users_query = users_query.filter(username__icontains=search)
+
+    paginator = Paginator(users_query, 9)
+    users_set = paginator.get_page(page)
+
+    return render(request, "index.html", {"users": users_set, "page": page})
 
 
 def contacts_new(request):
@@ -32,8 +39,7 @@ def contacts_new(request):
         return redirect("/contacts")
 
     else:
-        new_user = User()
-        return render(request, "new.html", {"contact": new_user})
+        return render(request, "new.html")
 
 
 def contacts_view(request, user_id=0):
@@ -62,3 +68,17 @@ def contacts_edit(request, user_id=0):
 
     else:
         return render(request, "edit.html", {"user": user})
+
+
+def contacts_email_get(request, user_id=0):
+    user = get_object_or_404(User, id=user_id)
+    user.email = request.GET.get('email')
+
+    validator = EmailValidator()
+    errors = {}
+    try:
+        validator(user.email)
+    except ValidationError as e:
+        errors['email'] = e.message
+
+    return HttpResponse(errors.get('email', ''))
