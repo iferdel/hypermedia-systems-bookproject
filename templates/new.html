@@ -11,7 +11,16 @@
         <div>
             <label>{{ form.username.label_tag }}</label>
             {{ form.username.errors }}
-            {% render_field form.username class="form-control" hx-post="/check_username/" hx-trigger="keyup" hx-target="#username-error" hx-swap="outerHTML" %}
+            <input name="{{ form.username.name }}"
+                   id="{{ form.username.id_for_label }}"
+                   type="text"
+                   hx-post="/check_username/"
+                   hx-trigger="keyup delay:200ms changed"
+                   hx-target="#username-error"
+                   hx-swap="innerHTML"
+                   class="form-control"
+                   placeholder="Username"
+            >
             <div id="username-error"></div>
         </div>
         <p>
@@ -24,11 +33,22 @@
             {{ form.last_name.errors }}
             <input name="{{ form.last_name.name }}" id="{{ form.last_name.id_for_label }}" type="text" class="form-control" placeholder="Last Name">
         </p>
-        <p>
+        <div>
             <label>"{{ form.email.label_tag }}"</label>
             {{ form.email.errors }}
-            <input name="{{ form.email.name }}" id="{{ form.email.id_for_label }}" type="email" class="form-control" placeholder="Email">
-        </p>
+
+            <input name="{{ form.email.name }}"
+                   id="{{ form.email.id_for_label }}"
+                   type="email"
+                   hx-post="/check_email/"
+                   hx-trigger="keyup delay:200ms changed"
+                   hx-target="#email-error"
+                   hx-swap="innerHTML"
+                   class="form-control"
+                   placeholder="Email"
+            >
+            <div id="email-error"></div>
+        </div>
         <button>Save</button>
     </fieldset>
 </form>

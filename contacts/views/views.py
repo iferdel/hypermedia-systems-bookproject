@@ -1,5 +1,4 @@
 # contacts/views.py
-from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -7,7 +6,7 @@ from django.core.validators import EmailValidator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
-from .forms import NewContactForm
+from contacts.forms import NewContactForm
 
 
 def home(request):
@@ -74,25 +73,3 @@ def contacts_edit(request, user_id=0):
 
     else:
         return render(request, "edit.html", {"user": user})
-
-
-def contacts_email_get(request, user_id=0):
-    user = get_object_or_404(User, id=user_id)
-    user.email = request.GET.get('email')
-
-    validator = EmailValidator()
-    errors = {}
-    try:
-        validator(user.email)
-    except ValidationError as e:
-        errors['email'] = e.message
-
-    return HttpResponse(errors.get('email', ''))
-
-
-def check_username(request):
-    username = request.POST.get('username')
-    if User.objects.filter(username=username).exists():
-        return HttpResponse("<div style='color: red;'>This username already exists</div>")
-    else:
-        return HttpResponse("<div style='color: green;'>This username is available</div>")
