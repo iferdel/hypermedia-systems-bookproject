@@ -42,7 +42,10 @@
     </div>
 
    <p>
-       <a href="{% url 'contacts_new' %}">Add Contact</a> <span hx-get="{% url 'contacts-count' %}" hx-trigger="load"></span>
+       <a href="{% url 'contacts_new' %}">Add Contact</a>
+       <span hx-get="{% url 'contacts-count' %}" hx-trigger="revealed">
+           <img id="contacts-count-spinner" class="htmx-indicator" src="{% static 'images/12-dots-scale-rotate.svg' %}"/>
+       </span>
    </p>
 
 {% endblock %}
