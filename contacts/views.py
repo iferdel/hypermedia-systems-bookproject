@@ -28,9 +28,6 @@ def contacts(request):
     except EmptyPage:
         users = paginator.page(paginator.num_pages)
 
-    if request.headers.get("HX-Request"):
-        return render(request, "partial_users.html", {"users": users})
-
     return render(request, "index.html", {"users": users})
 
 
