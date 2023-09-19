@@ -1,0 +1,13 @@
+<!-- templates/partial_users.html -->
+
+{% for user in users %}
+    <tr>
+        <td>{{ user.username }}</td>
+        <td>{{ user.first_name }}</td>
+        <td>{{ user.last_name }}</td>
+        <td>{{ user.email }}</td>
+        <td>
+            <a href="{% url 'contacts_edit' user.id %}">Edit</a>
+            <a href="{% url 'contacts_view' user.id %}">View</a>
+    </tr>
+{% endfor %}
