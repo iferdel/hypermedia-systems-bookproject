@@ -15,6 +15,8 @@ def contacts(request):
     search = request.GET.get("q")
     if search is not None:
         users_list = User.objects.filter(username__icontains=search)
+        if request.headers.get("HX-Trigger") == "search":
+            return render(request, "rows.html", {"users": users_list})
     else:
         users_list = User.objects.all()
 

@@ -5,7 +5,11 @@
 {% block content %}
     <form action="/contacts" method="get" class="tool-bar">
         <label for="search">Search Term</label>
-        <input id="search" type="search" name="q" value="{{ request.GET.q|default:'' }}"/>
+        <input id="search" type="search" name="q" value="{{ request.GET.q|default:'' }}"
+               hx-get="/contacts"
+               hx-trigger="search, keyup delay:200ms changed"
+               hx-target="tbody"
+               hx-select="tbody tr"/>
         <input type="submit" value="Search"/>
     </form>
 
@@ -17,17 +21,7 @@
         </thead>
         <tbody id="user-table-body">
 
-            {% for user in users %}
-            <tr>
-                <td>{{ user.username }}</td>
-                <td>{{ user.first_name }}</td>
-                <td>{{ user.last_name }}</td>
-                <td>{{ user.email }}</td>
-                <td>
-                    <a href="{% url 'contacts_edit' user.id %}">Edit</a>
-                    <a href="{% url 'contacts_view' user.id %}">View</a>
-            </tr>
-            {% endfor %}
+        {% include 'rows.html' %}
 
         </tbody>
     </table>
