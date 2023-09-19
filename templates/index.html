@@ -36,13 +36,13 @@
                 <a href="?page={{ users.previous_page_number }}">Previous</a>
             {% endif %}
             {% if users.has_next %}
-                <a href="?page={{ users.next_page_number }}">Next</a> <span>({{ count }} total Contacts)</span>>
+                <a href="?page={{ users.next_page_number }}">Next</a>
             {% endif %}
         </span>
     </div>
 
    <p>
-       <a href="{% url 'contacts_new' %}">Add Contact</a>
+       <a href="{% url 'contacts_new' %}">Add Contact</a> <span hx-get="{% url 'contacts-count' %}" hx-trigger="load"></span>
    </p>
 
 {% endblock %}

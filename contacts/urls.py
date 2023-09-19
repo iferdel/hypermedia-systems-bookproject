@@ -14,6 +14,7 @@ urlpatterns = [
 htmx_views = [
     path("check_username/", htmx_views.check_username, name="check-username"),
     path("check_email/", htmx_views.check_email, name="check-email"),
+    path("contacts/count/", htmx_views.contacts_count, name="contacts-count"),
 ]
 
 urlpatterns += htmx_views

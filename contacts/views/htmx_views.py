@@ -16,3 +16,8 @@ def check_email(request):
         return HttpResponse("<div style='color: red;'>This email already exists</div>")
     else:
         return HttpResponse("<div style='color: green;'>This email is available</div>")
+
+
+def contacts_count(request):
+    count = User.objects.all().count()
+    return HttpResponse("(" + str(count) + " total Contacts)")
