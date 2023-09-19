@@ -27,21 +27,19 @@
                     <a href="{% url 'contacts_view' user.id %}">View</a>
             </tr>
         {% endfor %}
-        {% if user_count == 10 %}
-            <tr>
-                <td colspan="5" style="text-align: center">
-                    <span hx-target="closest tr"
-                            hx-trigger="revealed"
-                            hx-swap="outerHTML"
-                            hx-select="tbody > tr"
-                            hx-get="{% url 'contacts' %}?page={{ users.next_page_number }}">
-                        Loading More...
-                    </span>
-                </td>
-            </tr>
-        {% endif %}
         </tbody>
     </table>
+
+    <div>
+        <span style="float: right">
+            {% if users.has_previous %}
+                <a href="?page={{ users.previous_page_number }}">Previous</a>
+            {% endif %}
+            {% if users.has_next %}
+                <a href="?page={{ users.next_page_number }}">Next</a>
+            {% endif %}
+        </span>
+    </div>
 
    <p>
        <a href="{% url 'contacts_new' %}">Add Contact</a>

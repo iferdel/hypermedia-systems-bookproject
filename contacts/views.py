@@ -1,7 +1,7 @@
 # contacts/views.py
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
-from django.core.paginator import Paginator
 from django.core.validators import EmailValidator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -13,17 +13,22 @@ def home(request):
 
 def contacts(request):
     search = request.GET.get("q")
-    page = int(request.GET.get("page", 1))
+    if search is not None:
+        users_list = User.objects.filter(username__icontains=search)
+    else:
+        users_list = User.objects.all()
 
-    users_query = User.objects.all()
+    paginator = Paginator(users_list, 10)
+    page = request.GET.get('page')
 
-    if search:
-        users_query = users_query.filter(username__icontains=search)
+    try:
+        users = paginator.page(page)
+    except PageNotAnInteger:
+        users = paginator.page(1)
+    except EmptyPage:
+        users = paginator.page(paginator.num_pages)
 
-    paginator = Paginator(users_query, 9)
-    users_set = paginator.get_page(page)
-
-    return render(request, "index.html", {"users": users_set, "page": page})
+    return render(request, "index.html", {"users": users})
 
 
 def contacts_new(request):
