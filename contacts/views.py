@@ -1,10 +1,13 @@
 # contacts/views.py
+from django.contrib.auth import get_user_model
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from django.core.validators import EmailValidator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+
+from .forms import NewContactForm
 
 
 def home(request):
@@ -35,18 +38,14 @@ def contacts(request):
 
 def contacts_new(request):
     if request.method == 'POST':
-        new_user = User(
-            first_name=request.POST['first_name'],
-            last_name=request.POST['last_name'],
-            username=request.POST['username'],
-            email=request.POST['email'],
-        )
-        new_user.save()
-
-        return redirect("/contacts")
-
+        form = NewContactForm(request.POST)
+        if form.is_valid():
+            new_user = form.save()
+            return redirect("/contacts")
     else:
-        return render(request, "new.html")
+        form = NewContactForm()
+
+    return render(request, "new.html", {'form': form})
 
 
 def contacts_view(request, user_id=0):
@@ -89,3 +88,11 @@ def contacts_email_get(request, user_id=0):
         errors['email'] = e.message
 
     return HttpResponse(errors.get('email', ''))
+
+
+def check_username(request):
+    username = request.POST.get('username')
+    if User.objects.filter(username=username).exists():
+        return HttpResponse("<div style='color: red;'>This username already exists</div>")
+    else:
+        return HttpResponse("<div style='color: green;'>This username is available</div>")

@@ -1,6 +1,7 @@
 <!-- templates/index.html -->
 
 {% extends 'layout.html' %}
+{% load static %}
 
 {% block content %}
     <form action="/contacts" method="get" class="tool-bar">
@@ -9,7 +10,10 @@
                hx-get="/contacts"
                hx-trigger="search, keyup delay:200ms changed"
                hx-target="tbody"
+               hx-push-url="true"
+               hx-indicator="#spinner"
         />
+        <img id="spinner" class="htmx-indicator" src="{% static 'images/12-dots-scale-rotate.svg' %}" alt="Request in the flight...">
         <input type="submit" value="Search"/>
     </form>
 

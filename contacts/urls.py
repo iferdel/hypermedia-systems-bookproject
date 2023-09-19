@@ -11,3 +11,9 @@ urlpatterns = [
     path("contacts/<int:user_id>/edit/", views.contacts_edit, name="contacts_edit"),
     path("contacts/<int:user_id>/email/", views.contacts_email_get, name="contacts_email_get"),
 ]
+
+htmx_views = [
+    path("check_username/", views.check_username, name="check-username"),
+]
+
+urlpatterns += htmx_views

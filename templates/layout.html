@@ -3,14 +3,13 @@
 {% load static %}
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <title>Contact App</title>
     <script src="{% static 'js/htmx.min.js' %}"></script>
 </head>
-<body hx-boost="true">
-<!--      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>-->
+<body hx-boost="true" hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
     {% if messages %}
         <ul class="messages">
             {% for message in messages %}
