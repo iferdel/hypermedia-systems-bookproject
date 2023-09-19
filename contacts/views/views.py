@@ -39,8 +39,13 @@ def contacts_new(request):
     if request.method == 'POST':
         form = NewContactForm(request.POST)
         if form.is_valid():
-            new_user = form.save()
+            new_user = form.save(commit=False)
+            new_user.set_unusable_password()
+            new_user.save()
             return redirect("/contacts")
+        else:
+            print("Form is invalid")
+            print(form.errors)
     else:
         form = NewContactForm()
 

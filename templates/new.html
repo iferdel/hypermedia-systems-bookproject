@@ -4,7 +4,7 @@
 {% load widget_tweaks %}
 
 {% block content %}
-    <form action="/contacts/new/" method="POST" autocomplete="off">
+    <form action="{% url 'contacts_new' %}" method="POST" autocomplete="off">
     {% csrf_token %}
     <fieldset>
         <legend>Contact Values</legend>
