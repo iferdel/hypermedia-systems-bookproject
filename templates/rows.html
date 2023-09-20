@@ -11,7 +11,7 @@
          <a href="#"
             hx-delete="{% url 'contacts_edit' user.id %}"
             hx-confirm="Are you sure you want to delete this contact?"
-            hx-target="body">Delete</a>
+            hx-target="closest tr">Delete</a>
     </tr>
 
 {% endfor %}

@@ -11,8 +11,8 @@
 </div>
 
 <p>
-  <a href="/contacts/{{ user.id }}/edit">Edit</a>
-  <a href="/contacts">Back</a>
+  <a href="{% url 'contacts_edit' user.id %}">Edit</a>
+  <a href="{% url 'contacts' %}">Back</a>
 </p>
 
 {% endblock %}

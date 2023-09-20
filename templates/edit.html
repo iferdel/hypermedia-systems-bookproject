@@ -30,7 +30,8 @@
         </fieldset>
     </form>
 
-    <button hx-delete="{% url 'contacts_edit' user.id %}"
+    <button id="delete-btn"
+            hx-delete="{% url 'contacts_edit' user.id %}"
             hx-headers='{"X-CSRFToken":"{{ csrf_token }}"}'
             hx-target="body"
             hx-push-url="true"

@@ -72,9 +72,11 @@ def contacts_edit(request, user_id=0):
     elif request.method == 'DELETE':
         user = get_object_or_404(User, id=user_id)
         user.delete()
-        response = HttpResponse(status=303)
-        response['Location'] = '/contacts'
-        return response
-
+        if request.headers.get('HX-Trigger') == 'delete-btn':
+            response = HttpResponse(status=303)
+            response['Location'] = '/contacts'
+            return response
+        else:
+            return HttpResponse("")
     else:
         return render(request, "edit.html", {"user": user})
