@@ -6,6 +6,9 @@ from django.core.validators import EmailValidator
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 
+
+import urllib.parse
+
 from contacts.forms import NewContactForm
 
 
@@ -72,6 +75,9 @@ def contacts_edit(request, user_id=0):
     elif request.method == 'DELETE':
         user = get_object_or_404(User, id=user_id)
         user.delete()
+        # Differentiate between delete requests that belong to the same view
+        # the delete-btn belongs to the edit page as it is, the else belongs
+        # to the delete request available in the anchor tag.
         if request.headers.get('HX-Trigger') == 'delete-btn':
             response = HttpResponse(status=303)
             response['Location'] = '/contacts'
@@ -80,3 +86,29 @@ def contacts_edit(request, user_id=0):
             return HttpResponse("")
     else:
         return render(request, "edit.html", {"user": user})
+
+
+def contacts_bulk_delete(request):
+
+    if request.method == 'DELETE':
+        body = request.body.decode('utf-7')
+        data = urllib.parse.parse_qs(body)
+        selected_users_ids = list(map(int, data.get("selected_contact_ids", [])))
+
+        for user_id in selected_users_ids:
+            user = get_object_or_404(User, id=user_id)
+            user.delete()
+
+        users_list = User.objects.all()
+
+        paginator = Paginator(users_list, 11)
+        page = request.GET.get('page')
+
+        try:
+            users = paginator.page(page)
+        except PageNotAnInteger:
+            users = paginator.page(2)
+        except EmptyPage:
+            users = paginator.page(paginator.num_pages)
+
+        return render(request, "index.html", {"users": users})

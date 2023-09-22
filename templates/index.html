@@ -17,10 +17,11 @@
         <input type="submit" value="Search"/>
     </form>
 
+<form> {% csrf_token %}
     <table>
         <thead>
         <tr>
-            <th>Username</th> <th>First</th> <th>Last</th> <th>Email</th> <th></th>
+            <th></th><th>Username</th> <th>First</th> <th>Last</th> <th>Email</th> <th></th>
         </tr>
         </thead>
         <tbody id="user-table-body">
@@ -29,6 +30,13 @@
 
         </tbody>
     </table>
+
+    <button hx-delete="{% url 'contacts_bulk_delete' %}"
+            hx-confirm="Are you sure you want to delete these contacts?"
+            hx-target="body">
+        Delete Selected Contacts
+    </button>
+</form>
 
     <div>
         <span style="float: right">
