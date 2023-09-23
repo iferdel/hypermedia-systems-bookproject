@@ -1,4 +1,18 @@
+/* static/css/main.css */
+
 tr.htmx-swapping {
   opacity: 0;
   transition: opacity 1s ease-out;
+}
+
+.success {
+    color: green;
+    transition: all ease-in 2s;
+}
+
+.error {
+    color: red;
+    font-size: 50px;
+    transform: rotate(45deg);
+    transition: all ease-in 2s;
 }
