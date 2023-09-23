@@ -1,7 +1,9 @@
 from django.contrib.auth.models import User
 from django.http import HttpResponse
+from django.views.decorators.http import require_http_methods
 
 
+@require_http_methods(['POST'])
 def check_username(request):
     username = request.POST.get('username')
     if User.objects.filter(username=username).exists():
@@ -10,6 +12,7 @@ def check_username(request):
         return HttpResponse("<div id='email-error' class='success'>This username is available</div>")
 
 
+@require_http_methods(['DELETE'])
 def check_email(request):
     email = request.POST.get('email')
     if User.objects.filter(email=email).exists():
