@@ -3,7 +3,6 @@ from django.http import HttpResponse
 from django.views.decorators.http import require_http_methods
 
 
-@require_http_methods(['POST'])
 def check_username(request):
     username = request.POST.get('username')
     if User.objects.filter(username=username).exists():

@@ -17,7 +17,8 @@
         <input type="submit" value="Search"/>
     </form>
 
-<form> {% csrf_token %}
+<form class="sortable" hx-trigger="end" hx-post="/sort"> {% csrf_token %}
+    <div class="htmx-indicator">Updating...</div>
     <table>
         <thead>
         <tr>
