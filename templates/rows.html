@@ -3,7 +3,7 @@
 {% for user in users %}
 <div class="table-row">
     <input type="hidden" name="user_order" value="{{ user.id }}" />
-    <div class="table-cell"><input type="checkbox" name="selected_contact_ids" value="{{ user.id }}"></div>
+    <div class="table-cell"><input type="checkbox" name="selected_contact_ids" value="{{ user.id }}" x-model="selected"></div>
     <div class="table-cell">{{ user.username }}</div>
     <div class="table-cell">{{ user.first_name }}</div>
     <div class="table-cell">{{ user.last_name }}</div>

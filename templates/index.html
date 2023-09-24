@@ -17,8 +17,6 @@
         <input type="submit" value="Search"/>
     </form>
 
-
-
 <div class="table-header">
     <div class="table-header-cell"></div>
     <div class="table-header-cell">Username</div>
@@ -27,7 +25,20 @@
     <div class="table-header-cell">Email</div>
     <div class="table-header-cell"></div>
 </div>
-<form class="sortable" hx-trigger="end" hx-post="/sort"> {% csrf_token %}
+<form class="sortable" hx-trigger="end" hx-post="/sort" x-data="{ selected: [] }"> {% csrf_token %}
+    <template x-if="selected.length > 0">
+        <div class="box info tool-bar">
+            <slot x-text="selected.length"></slot>
+            contacts selected
+
+            <button type="button" class="bad bg color border"
+                @click="confirm(`Delete ${selected.length} contacts?`) &&
+                    htmx.ajax('DELETE', '{% url 'contacts_bulk_delete' %}', { source: $root, target: document.body })"
+            >Delete</button>
+            <hr aria-orientation="vertical">
+            <button type="button" @click="selected = []">Cancel</button>
+        </div>
+    </template>
     <table>
         <tbody id="user-table-body">
 
