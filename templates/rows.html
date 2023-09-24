@@ -8,14 +8,22 @@
     <div class="table-cell">{{ user.first_name }}</div>
     <div class="table-cell">{{ user.last_name }}</div>
     <div class="table-cell">{{ user.email }}</div>
+
     <div class="table-cell">
-        <a href="{% url 'contacts_edit' user.id %}">Edit</a>
-        <a href="{% url 'contacts_view' user.id %}">View</a>
-        <a href="#"
-           hx-delete="{% url 'contacts_edit' user.id %}"
-           hx-swap="outerHTML swap:1s"
-           hx-confirm="Are you sure you want to delete this contact?"
-           hx-target="closest .table-row">Delete</a>
+        <div data-overflow-menu>
+            <button type="button" aria-haspopup="menu" aria-controls="contact-menu-{{ user.id }}">
+                Options
+            </button>
+            <div role="menu" hidden id="user-menu-{{ user.id }}">
+                <a role="menuitem" href="{% url 'contacts_edit' user.id %}">Edit</a>
+                <a role="menuitem" href="{% url 'contacts_view' user.id %}">View</a>
+                <a role="menuitem" href="#"
+                   hx-delete="{% url 'contacts_edit' user.id %}"
+                   hx-swap="outerHTML swap:1s"
+                   hx-confirm="Are you sure you want to delete this contact?"
+                   hx-target="closest .table-row">Delete</a>
+            </div>
+        </div>
     </div>
 </div>
 
