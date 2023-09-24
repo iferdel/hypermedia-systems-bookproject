@@ -17,17 +17,21 @@
         <input type="submit" value="Search"/>
     </form>
 
+
+
+<div class="table-header">
+    <div class="table-header-cell"></div>
+    <div class="table-header-cell">Username</div>
+    <div class="table-header-cell">First</div>
+    <div class="table-header-cell">Last</div>
+    <div class="table-header-cell">Email</div>
+    <div class="table-header-cell"></div>
+</div>
 <form class="sortable" hx-trigger="end" hx-post="/sort"> {% csrf_token %}
-    <div class="htmx-indicator">Updating...</div>
     <table>
-        <thead>
-        <tr>
-            <th></th><th>Username</th> <th>First</th> <th>Last</th> <th>Email</th> <th></th>
-        </tr>
-        </thead>
         <tbody id="user-table-body">
 
-        {% include 'rows.html' %}
+            {% include 'rows.html' %}
 
         </tbody>
     </table>
@@ -38,6 +42,8 @@
         Delete Selected Contacts
     </button>
 </form>
+
+<div class="htmx-indicator">Updating...</div>
 
     <div>
         <span style="float: right">

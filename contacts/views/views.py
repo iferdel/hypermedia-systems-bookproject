@@ -9,6 +9,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 
 import urllib.parse
 
+from django.views.decorators.http import require_http_methods
+
 from contacts.forms import NewContactForm
 
 
@@ -88,10 +90,11 @@ def contacts_edit(request, user_id=0):
         return render(request, "edit.html", {"user": user})
 
 
+@require_http_methods(['DELETE'])
 def contacts_bulk_delete(request):
 
     if request.method == 'DELETE':
-        body = request.body.decode('utf-7')
+        body = request.body.decode('utf-8')
         data = urllib.parse.parse_qs(body)
         selected_users_ids = list(map(int, data.get("selected_contact_ids", [])))
 
@@ -102,7 +105,7 @@ def contacts_bulk_delete(request):
         users_list = User.objects.all()
 
         paginator = Paginator(users_list, 11)
-        page = request.GET.get('page')
+        page = request.GET.get('page') or 1
 
         try:
             users = paginator.page(page)

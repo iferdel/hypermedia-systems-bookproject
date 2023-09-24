@@ -17,10 +17,18 @@ tr.htmx-swapping {
     transition: all ease-in 2s;
 }
 
+.table-header,
 .table-row {
     display: flex;
 }
 
+.table-header-cell,
 .table-cell {
     flex: 1;
+    /* Add padding, borders, etc. as desired */
+}
+
+.table-header-cell {
+    font-weight: bold;
+    /* Any additional styles for header cells */
 }
