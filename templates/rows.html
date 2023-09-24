@@ -1,24 +1,23 @@
 <!-- templates/rows.html -->
 
 {% for user in users %}
-<div>
+<div class="table-row">
     <input type="hidden" name="user_order" value="{{ user.id }}" />
-    <tr>
-
-        <td><input type="checkbox" name="selected_contact_ids" value="{{ user.id }}"></td>
-        <td>{{ user.username }}</td>
-        <td>{{ user.first_name }}</td>
-        <td>{{ user.last_name }}</td>
-        <td>{{ user.email }}</td>
-        <td> <a href="{% url 'contacts_edit' user.id %}">Edit</a>
-         <a href="{% url 'contacts_view' user.id %}">View</a>
-            <a href="#"
-               hx-delete="{% url 'contacts_edit' user.id %}"
-               hx-swap="outerHTML swap:1s"
-               hx-confirm="Are you sure you want to delete this contact?"
-               hx-target="closest tr">Delete</a>
-    </tr>
-
+    <div class="table-cell"><input type="checkbox" name="selected_contact_ids" value="{{ user.id }}"></div>
+    <div class="table-cell">{{ user.username }}</div>
+    <div class="table-cell">{{ user.first_name }}</div>
+    <div class="table-cell">{{ user.last_name }}</div>
+    <div class="table-cell">{{ user.email }}</div>
+    <div class="table-cell">
+        <a href="{% url 'contacts_edit' user.id %}">Edit</a>
+        <a href="{% url 'contacts_view' user.id %}">View</a>
+        <a href="#"
+           hx-delete="{% url 'contacts_edit' user.id %}"
+           hx-swap="outerHTML swap:1s"
+           hx-confirm="Are you sure you want to delete this contact?"
+           hx-target="closest .table-row">Delete</a>
+    </div>
 </div>
+
 
 {% endfor %}

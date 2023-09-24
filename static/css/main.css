@@ -16,3 +16,11 @@ tr.htmx-swapping {
     transform: rotate(45deg);
     transition: all ease-in 2s;
 }
+
+.table-row {
+    display: flex;
+}
+
+.table-cell {
+    flex: 1;
+}
