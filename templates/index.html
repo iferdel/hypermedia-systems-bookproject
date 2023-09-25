@@ -26,19 +26,7 @@
     <div class="table-header-cell"></div>
 </div>
 <form class="sortable" hx-trigger="end" hx-post="/sort" x-data="{ selected: [] }"> {% csrf_token %}
-    <template x-if="selected.length > 0">
-        <div class="box info tool-bar">
-            <slot x-text="selected.length"></slot>
-            contacts selected
 
-            <button type="button" class="bad bg color border"
-                @click="confirm(`Delete ${selected.length} contacts?`) &&
-                    htmx.ajax('DELETE', '{% url 'contacts_bulk_delete' %}', { source: $root, target: document.body })"
-            >Delete</button>
-            <hr aria-orientation="vertical">
-            <button type="button" @click="selected = []">Cancel</button>
-        </div>
-    </template>
     <table>
         <tbody id="user-table-body">
 
@@ -47,11 +35,25 @@
         </tbody>
     </table>
 
-    <button hx-delete="{% url 'contacts_bulk_delete' %}"
-            hx-confirm="Are you sure you want to delete these contacts?"
-            hx-target="body">
-        Delete Selected Contacts
-    </button>
+    <button type="button" class="bad bg color border"
+            hx-delete="{% url 'contacts_bulk_delete' %}" hx-target="body" hx-trigger="confirmed"
+            @click="sweetConfirm($el,
+            { title: 'Delete these contacts?',
+              text: 'You are about to delete contacts.',
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonText: 'Delete'})">
+    Delete selected contacts</button>
+<!-- the idea behind the bulk delete buttton was to be inside the template and div tag from below-->
+<!-- but it turned out that having the button inside lead to no action after clicking the confirm button from the modal -->
+    <template x-if="selected.length > 0">
+        <div class="box info tool-bar">
+            <slot x-text="selected.length"></slot>
+            contacts selected
+            <hr aria-orientation="vertical">
+            <button type="button" @click="selected = []">Cancel</button>
+        </div>
+    </template>
 </form>
 
 <div class="htmx-indicator">Updating...</div>
@@ -77,5 +79,7 @@
 <script src="{% static 'js/Sortable.min.js' %}"></script>
 <script src="{% static 'js/htmx-sortable.js' %}"></script>
 <script src="{% static 'js/rsjs-menu.js' %}"></script>
+<script src="{% static 'js/sweetalert2.all.min.js' %}"></script>
+<script src="{% static 'js/sweetConfirm.js' %}"></script>
 
 {% endblock %}

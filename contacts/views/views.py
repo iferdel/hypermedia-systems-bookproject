@@ -92,11 +92,14 @@ def contacts_edit(request, user_id=0):
 
 @require_http_methods(['DELETE'])
 def contacts_bulk_delete(request):
-
+    print('not yet request method')
     if request.method == 'DELETE':
+        print('Delete request - bulk button confirmation')
         body = request.body.decode('utf-8')
         data = urllib.parse.parse_qs(body)
         selected_users_ids = list(map(int, data.get("selected_contact_ids", [])))
+
+        print(f'ids to be deleted: {selected_users_ids}')
 
         for user_id in selected_users_ids:
             user = get_object_or_404(User, id=user_id)
